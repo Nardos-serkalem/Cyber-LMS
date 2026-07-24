@@ -9,12 +9,12 @@ export type BadgeStatus =
 
 const badgeStyles: Record<BadgeStatus, { bg: string; text: string; label: string }> = {
   enrolled: { bg: "#A8D400", text: "#1B2340", label: "Enrolled" },
-  inProgress: { bg: "#F4FBCC", text: "#7A9C00", label: "In progress" },
+  inProgress: { bg: "#F4FBCC", text: "#4E6400", label: "In progress" },
   completed: { bg: "#1B2340", text: "#A8D400", label: "Completed" },
-  certified: { bg: "#2A3560", text: "#EEF0F7", label: "Certified" },
-  new: { bg: "#FFFFFF", text: "#1976D2", label: "New" },
-  pending: { bg: "#FFFFFF", text: "#FFC107", label: "Pending" },
-  overdue: { bg: "#FFFFFF", text: "#E53935", label: "Overdue" },
+  certified: { bg: "#2A3560", text: "#C5CADE", label: "Certified" },
+  new: { bg: "#E8F4FD", text: "#1565C0", label: "New" },
+  pending: { bg: "#FFF3CD", text: "#856404", label: "Pending" },
+  overdue: { bg: "#FFEBEE", text: "#B71C1C", label: "Overdue" },
 };
 
 interface BadgeProps {

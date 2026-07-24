@@ -51,11 +51,11 @@ const enrolledCourses: EnrolledCourse[] = [
 const statusClasses = (status?: "info" | "warning" | "danger") => {
   switch (status) {
     case "warning":
-      return "border border-warning bg-white text-warning";
+      return "bg-status-warningBg text-status-warningText border border-transparent";
     case "danger":
-      return "border border-danger bg-white text-danger";
+      return "bg-status-dangerBg text-status-dangerText border border-transparent";
     default:
-      return "border border-info bg-white text-info";
+      return "bg-status-infoBg text-status-infoText border border-transparent";
   }
 };
 
@@ -106,14 +106,14 @@ export function StudentDashboard() {
           {enrolledCourses.map((course) => (
             <div
               key={course.id}
-              className="flex flex-col overflow-hidden rounded-xl border border-navy-200 bg-lemon-50 transition-colors hover:bg-surface-card"
+              className="flex flex-col overflow-hidden rounded-xl border border-navy-200 bg-lemon-50 transition-all hover:bg-surface-card hover:shadow-md"
             >
               <div className="flex h-[90px] items-center justify-center bg-navy-900 text-xl font-bold tracking-wide text-lemon-500">
                 {course.thumbnailLabel}
               </div>
               <div className="flex flex-1 flex-col px-4 pb-5 pt-4">
                 <h3 className="mb-1 text-base font-bold text-navy-900">{course.title}</h3>
-                <p className="mb-1.5 text-[13px] text-navy-500">{course.instructor}</p>
+                <p className="mb-1.5 text-[13px] text-navy-700 font-medium">{course.instructor}</p>
 
                 <div className="mt-2 h-2 overflow-hidden rounded-full border border-navy-200 bg-navy-50">
                   <div
@@ -123,7 +123,7 @@ export function StudentDashboard() {
                     style={{ width: `${course.progress}%` }}
                   />
                 </div>
-                <p className="mb-2.5 mt-1.5 text-xs text-navy-500">
+                <p className="mb-2.5 mt-1.5 text-xs text-navy-600">
                   {course.completedLessons}/{course.totalLessons} lessons ·{" "}
                   {course.progress}%
                 </p>
@@ -138,7 +138,7 @@ export function StudentDashboard() {
                   </span>
                 )}
 
-                <button className="mt-auto w-full rounded-lg bg-lemon-500 py-2.5 text-sm font-bold text-navy-900 transition-colors hover:bg-lemon-50 active:bg-lemon-700 active:text-white">
+                <button className="mt-auto w-full rounded-lg bg-lemon-500 py-2.5 text-sm font-bold text-navy-900 transition-colors hover:bg-lemon-200 active:bg-lemon-700">
                   {course.progress === 100 ? "Review Course" : "Continue Learning"}
                 </button>
               </div>

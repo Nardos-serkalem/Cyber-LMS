@@ -7,6 +7,9 @@ import { CourseBuilderPage } from "./pages/instructor/CourseBuilderPage";
 import { LoginPage } from "./pages/public/LoginPage";
 import { RegisterPage } from "./pages/public/RegisterPage";
 import { useAuthStore } from "./store/authStore";
+import { MyCoursesPage } from "./pages/student/MyCoursesPage";
+import { CertificatesPage } from "./pages/student/CertificatesPage";
+import { NotificationsPage } from "./pages/student/NotificationsPage";
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
@@ -59,6 +62,36 @@ function App() {
         }
       />
       <Route path="*" element={<Navigate to="/login" replace />} />
+   <Route
+  path="/my-courses"
+  element={
+    <RequireAuth>
+      <DashboardLayout title="My courses" subtitle="Everything you're enrolled in">
+        <MyCoursesPage />
+      </DashboardLayout>
+    </RequireAuth>
+  }
+/>
+<Route
+  path="/certificates"
+  element={
+    <RequireAuth>
+      <DashboardLayout title="Certificates" subtitle="Courses you've completed">
+        <CertificatesPage />
+      </DashboardLayout>
+    </RequireAuth>
+  }
+/>
+<Route
+  path="/notifications"
+  element={
+    <RequireAuth>
+      <DashboardLayout title="Notifications" subtitle="Deadlines, grades, announcements">
+        <NotificationsPage />
+      </DashboardLayout>
+    </RequireAuth>
+  }
+/>
     </Routes>
   );
 }

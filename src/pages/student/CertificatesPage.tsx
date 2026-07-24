@@ -1,0 +1,33 @@
+import { useCourses } from "../../lib/queries/useCourses";
+import { useCertificates } from "../../lib/queries/useCertificates";
+import { Card } from "../../components/ui/Card";
+import { Badge } from "../../components/ui/Badge";
+
+const CURRENT_USER_ID = "user-1";
+
+export function CertificatesPage() {
+  const { data: courses, isLoading: coursesLoading } = useCourses();
+  const { data: certificates, isLoading: certsLoading } = useCertificates(CURRENT_USER_ID);
+
+  if (coursesLoading || certsLoading) {
+    return <div className="text-sm text-surface-muted">Loading certificates…</div>;
+  }
+
+  const courseTitle = (courseId: string) => courses?.find((c) => c.id === courseId)?.title ?? "Untitled course";
+
+  return (
+    <div className="grid grid-cols-2 gap-3">
+      {certificates?.map((cert) => (
+        <Card key={cert.id}>
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-sm font-medium text-navy-900">{courseTitle(cert.courseId)}</span>
+            <Badge status="certified" />
+          </div>
+          <p className="text-xs text-surface-muted">Issued {cert.issuedAt}</p>
+          <p className="mt-1 text-xs text-surface-muted">Verification: {cert.verificationHash}</p>
+        </Card>
+      ))}
+      {certificates?.length === 0 && <div className="text-sm text-surface-muted">No certificates earned yet.</div>}
+    </div>
+  );
+}

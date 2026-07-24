@@ -20,10 +20,13 @@
 
   --color-status-infoBg: #E8F4FD;
   --color-status-info: #1976D2;
+  --color-status-infoText: #1565C0;
   --color-status-warningBg: #FFF3CD;
   --color-status-warning: #FFC107;
+  --color-status-warningText: #856404;
   --color-status-dangerBg: #FFEBEE;
   --color-status-danger: #E53935;
+  --color-status-dangerText: #B71C1C;
 
   --color-info: #1976D2;
   --color-warning: #FFC107;
