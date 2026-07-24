@@ -64,7 +64,21 @@ export function Sidebar({ role }: SidebarProps) {
 
   return (
     <aside className="flex h-full w-[210px] flex-shrink-0 flex-col bg-navy-900 px-3.5 py-5">
-      <div className="mb-7 px-2.5 text-base font-medium text-lemon-500">Cyber-Zeb LMS</div>
+      <div className="mb-7 rounded-xl border border-navy-800 bg-navy-950/40 px-3 py-2.5 shadow-[0_10px_24px_rgba(27,35,64,0.18)]">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white shadow-sm ring-1 ring-white/10">
+            <img src="/Branalms.jpg" alt="Brana LMS Logo" className="h-full w-full object-cover" />
+          </div>
+          <div className="flex flex-col min-w-0">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.28em] text-navy-200">
+              Brana
+            </span>
+            <span className="text-base font-black uppercase leading-none tracking-[0.15em] text-lemon-500">
+              LMS
+            </span>
+          </div>
+        </div>
+      </div>
       <nav className="flex flex-col gap-1">
         {items.map(({ label, path, icon: Icon }) => {
           const isActive = location.pathname === path;
