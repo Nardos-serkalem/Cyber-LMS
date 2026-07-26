@@ -5,18 +5,31 @@ import { PublicLayout } from "../../layouts/PublicLayout";
 import { Button } from "../../components/ui/Button";
 import { Card } from "../../components/ui/Card";
 import { useAuthStore } from "../../store/authStore";
+import { loginUser } from "../../lib/api/auth";
+import { ApiError } from "../../lib/api/client";
 
 export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const login = useAuthStore((s) => s.login);
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const setSession = useAuthStore((s) => s.setSession);
   const navigate = useNavigate();
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    login(email.split("@")[0] || "Learner"); // mocked — no real auth call yet
-    navigate("/dashboard");
+    setError("");
+    setIsSubmitting(true);
+    try {
+      const { token, user } = await loginUser({ email, password });
+      setSession({ id: user.id, email: user.email, fullName: user.fullName, role: user.role, token });
+      navigate("/dashboard");
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : "Couldn't reach the server. Is the backend running?");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -92,8 +105,19 @@ export function LoginPage() {
               </button>
             </div>
 
-            <Button type="submit" variant="primary" className="mt-1 w-full rounded-xl py-3 text-sm font-semibold shadow-[0_16px_32px_rgba(168,212,0,0.22)]">
-              Log in
+            {error && (
+              <div className="rounded-xl border border-status-danger bg-status-dangerBg px-4 py-3 text-sm text-status-danger">
+                {error}
+              </div>
+            )}
+
+            <Button
+              type="submit"
+              variant="primary"
+              disabled={isSubmitting}
+              className="mt-1 w-full rounded-xl py-3 text-sm font-semibold shadow-[0_16px_32px_rgba(168,212,0,0.22)] disabled:opacity-60"
+            >
+              {isSubmitting ? "Logging in…" : "Log in"}
             </Button>
           </form>
 
