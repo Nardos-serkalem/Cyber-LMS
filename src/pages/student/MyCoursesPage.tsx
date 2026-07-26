@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 import { useCourses } from "../../lib/queries/useCourses";
 import { useEnrollments } from "../../lib/queries/useEnrollments";
+import { useAuthStore } from "../../store/authStore";
 import { Card } from "../../components/ui/Card";
 import { Badge } from "../../components/ui/Badge";
 import { ProgressBar } from "../../components/ui/ProgressBar";
 
-const CURRENT_USER_ID = "user-1";
-
 export function MyCoursesPage() {
+  const userId = useAuthStore((s) => s.id);
   const { data: courses, isLoading: coursesLoading } = useCourses();
-  const { data: enrollments, isLoading: enrollmentsLoading } = useEnrollments(CURRENT_USER_ID);
+  const { data: enrollments, isLoading: enrollmentsLoading } = useEnrollments(userId ?? "");
 
   if (coursesLoading || enrollmentsLoading) {
     return <div className="text-sm text-surface-muted">Loading your courses…</div>;

@@ -1,15 +1,15 @@
 import { useNotifications } from "../../lib/queries/useNotifications";
+import { useAuthStore } from "../../store/authStore";
 import { Badge } from "../../components/ui/Badge";
 import type { BadgeStatus } from "../../components/ui/Badge";
-
-const CURRENT_USER_ID = "user-1";
 
 function badgeForNotification(message: string): BadgeStatus {
   return message.toLowerCase().includes("overdue") ? "overdue" : "pending";
 }
 
 export function NotificationsPage() {
-  const { data: notifications, isLoading } = useNotifications(CURRENT_USER_ID);
+  const userId = useAuthStore((s) => s.id);
+  const { data: notifications, isLoading } = useNotifications(userId ?? "");
 
   if (isLoading) {
     return <div className="text-sm text-surface-muted">Loading notifications…</div>;

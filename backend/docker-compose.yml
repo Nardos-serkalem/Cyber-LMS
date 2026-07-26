@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: birana
+      POSTGRES_PASSWORD: birana
+      POSTGRES_DB: birana_lms
+    ports:
+      - "5432:5432"
+    volumes:
+      - birana_pg_data:/var/lib/postgresql/data
+
+volumes:
+  birana_pg_data:
