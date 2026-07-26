@@ -1,13 +1,15 @@
 import { useCourses } from "../../lib/queries/useCourses";
 import { useCertificates } from "../../lib/queries/useCertificates";
+import { useAuthStore } from "../../store/authStore";
 import { Card } from "../../components/ui/Card";
 import { Badge } from "../../components/ui/Badge";
 
-const CURRENT_USER_ID = "user-1";
-
 export function CertificatesPage() {
+  const userId = useAuthStore((s) => s.id);
   const { data: courses, isLoading: coursesLoading } = useCourses();
-  const { data: certificates, isLoading: certsLoading } = useCertificates(CURRENT_USER_ID);
+  // Certificates aren't part of the backend yet (see handoff doc) — this still
+  // reads from mock data for now, just no longer on a hardcoded fake user id.
+  const { data: certificates, isLoading: certsLoading } = useCertificates(userId ?? "");
 
   if (coursesLoading || certsLoading) {
     return <div className="text-sm text-surface-muted">Loading certificates…</div>;
