@@ -4,8 +4,6 @@ import { useCreateCourse } from "../../lib/queries/useCreateCourse";
 import { Card } from "../../components/ui/Card";
 import { Button } from "../../components/ui/Button";
 
-const CURRENT_INSTRUCTOR_ID = "instructor-1";
-
 interface ModuleDraft {
   title: string;
   isFree: boolean;
@@ -34,7 +32,13 @@ export function CourseBuilderPage() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     createCourse.mutate(
-      { title, description, instructorId: CURRENT_INSTRUCTOR_ID, status: "draft", price },
+      {
+        title,
+        description,
+        status: "draft",
+        price,
+        modules: modules.filter((m) => m.title.trim()),
+      },
       { onSuccess: () => navigate("/instructor/dashboard") },
     );
   }

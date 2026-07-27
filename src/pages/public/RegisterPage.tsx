@@ -4,18 +4,30 @@ import { PublicLayout } from "../../layouts/PublicLayout";
 import { Button } from "../../components/ui/Button";
 import { Card } from "../../components/ui/Card";
 import { useAuthStore } from "../../store/authStore";
+import { ApiError } from "../../lib/api/client";
 
 export function RegisterPage() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const login = useAuthStore((s) => s.login);
+  const [role, setRole] = useState<"student" | "instructor">("student");
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const register = useAuthStore((s) => s.register);
   const navigate = useNavigate();
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    login(fullName || "Learner"); // mocked — no real account creation yet
-    navigate("/dashboard");
+    setError("");
+    setSubmitting(true);
+    try {
+      await register({ fullName, email, password, role });
+      navigate(role === "instructor" ? "/instructor/dashboard" : "/dashboard");
+    } catch (err) {
+      setError(err instanceof ApiError ? err.message : "Registration failed");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -42,13 +54,23 @@ export function RegisterPage() {
           <input
             type="password"
             required
-            placeholder="Password"
+            minLength={6}
+            placeholder="Password (min 6 characters)"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="rounded-lg border border-navy-200 px-3 py-2 text-sm text-navy-900 outline-none focus:border-navy-500"
           />
-          <Button type="submit" variant="primary" className="mt-1 w-full">
-            Register
+          <select
+            value={role}
+            onChange={(e) => setRole(e.target.value as "student" | "instructor")}
+            className="rounded-lg border border-navy-200 px-3 py-2 text-sm text-navy-900 outline-none focus:border-navy-500"
+          >
+            <option value="student">Student</option>
+            <option value="instructor">Instructor</option>
+          </select>
+          {error && <p className="text-xs text-danger">{error}</p>}
+          <Button type="submit" variant="primary" className="mt-1 w-full" disabled={submitting}>
+            {submitting ? "Creating account…" : "Register"}
           </Button>
         </form>
         <Link to="/login" className="mt-4 block text-center text-xs text-surface-muted hover:text-navy-700">

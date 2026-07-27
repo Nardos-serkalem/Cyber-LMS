@@ -5,8 +5,6 @@ import { useNotifications } from "../../lib/queries/useNotifications";
 import { Badge } from "../../components/ui/Badge";
 import type { BadgeStatus } from "../../components/ui/Badge";
 
-const CURRENT_USER_ID = "user-1";
-
 // Placeholder until a real Instructor/User lookup exists — courses only
 // store instructorId today, not a display name.
 const instructorNames: Record<string, string> = {
@@ -20,10 +18,8 @@ function badgeForNotification(message: string): BadgeStatus {
 
 export function StudentDashboardPage() {
   const { data: courses, isLoading: coursesLoading } = useCourses();
-  const { data: enrollments, isLoading: enrollmentsLoading } =
-    useEnrollments(CURRENT_USER_ID);
-  const { data: notifications, isLoading: notificationsLoading } =
-    useNotifications(CURRENT_USER_ID);
+  const { data: enrollments, isLoading: enrollmentsLoading } = useEnrollments();
+  const { data: notifications, isLoading: notificationsLoading } = useNotifications();
 
   if (coursesLoading || enrollmentsLoading || notificationsLoading) {
     return <div className="text-sm text-surface-muted">Loading dashboard…</div>;

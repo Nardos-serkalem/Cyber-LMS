@@ -1,7 +1,7 @@
-import { mockDelay } from "./client";
-import { notifications } from "../mockData/notifications";
+import { apiFetch } from "./client";
 import type { Notification } from "../../types";
 
-export async function fetchNotifications(userId: string): Promise<Notification[]> {
-  return mockDelay(notifications.filter((n) => n.userId === userId));
+export async function fetchNotifications(userId?: string): Promise<Notification[]> {
+  const query = userId ? `?user_id=${encodeURIComponent(userId)}` : "";
+  return apiFetch<Notification[]>(`/notifications${query}`);
 }
