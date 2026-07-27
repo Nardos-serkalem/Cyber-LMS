@@ -31,9 +31,9 @@ const navItemsByRole: Record<UserRole, NavItem[]> = {
   instructor: [
     { label: "Dashboard", path: "/instructor/dashboard", icon: LayoutDashboard },
     { label: "Course builder", path: "/instructor/courses/new", icon: BookOpen },
-    { label: "Learners", path: "/instructor/dashboard", icon: Users },
-    { label: "Grading", path: "/instructor/dashboard", icon: ClipboardCheck },
-    { label: "Analytics", path: "/instructor/dashboard", icon: BarChart3 },
+    { label: "Learners", path: "/instructor/learners", icon: Users },
+    { label: "Grading", path: "/instructor/grading", icon: ClipboardCheck },
+    { label: "Analytics", path: "/instructor/analytics", icon: BarChart3 },
   ],
   institution_admin: [
     { label: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
