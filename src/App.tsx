@@ -4,6 +4,11 @@ import { StudentDashboard } from "./pages/student/StudentDashboardPage";
 import { CourseBrowsePage } from "./pages/student/CourseBrowsePage";
 import { InstructorDashboardPage } from "./pages/instructor/InstructorDashboardPage";
 import { CourseBuilderPage } from "./pages/instructor/CourseBuilderPage";
+import { InstructorCourseEditPage } from "./pages/instructor/InstructorCourseEditPage";
+import { InstructorCourseDetailsPage } from "./pages/instructor/InstructorCourseDetailsPage";
+import { InstructorLearnersPage } from "./pages/instructor/InstructorLearnersPage";
+import { InstructorGradingPage } from "./pages/instructor/InstructorGradingPage";
+import { InstructorAnalyticsPage } from "./pages/instructor/InstructorAnalyticsPage";
 import { LoginPage } from "./pages/public/LoginPage";
 import { RegisterPage } from "./pages/public/RegisterPage";
 import { useAuthStore } from "./store/authStore";
@@ -52,8 +57,58 @@ function App() {
         path="/instructor/courses/new"
         element={
           <RequireAuth>
-            <DashboardLayout title="Course builder" subtitle="Create a new course">
+            <DashboardLayout title="Course builder" subtitle="Create or refine a course">
               <CourseBuilderPage />
+            </DashboardLayout>
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/instructor/courses/:courseId"
+        element={
+          <RequireAuth>
+            <DashboardLayout title="Course details" subtitle="Review the current course state">
+              <InstructorCourseDetailsPage />
+            </DashboardLayout>
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/instructor/courses/:courseId/edit"
+        element={
+          <RequireAuth>
+            <DashboardLayout title="Edit course" subtitle="Update the selected course">
+              <InstructorCourseEditPage />
+            </DashboardLayout>
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/instructor/learners"
+        element={
+          <RequireAuth>
+            <DashboardLayout title="Learners" subtitle="Track enrollments and learner activity">
+              <InstructorLearnersPage />
+            </DashboardLayout>
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/instructor/grading"
+        element={
+          <RequireAuth>
+            <DashboardLayout title="Grading" subtitle="Review submissions and manage assessments">
+              <InstructorGradingPage />
+            </DashboardLayout>
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/instructor/analytics"
+        element={
+          <RequireAuth>
+            <DashboardLayout title="Analytics" subtitle="Review course performance and trends">
+              <InstructorAnalyticsPage />
             </DashboardLayout>
           </RequireAuth>
         }

@@ -16,6 +16,11 @@ export function Navbar({ title, subtitle, userInitials }: NavbarProps) {
     navigate("/login");
   }
 
+  function handleRoleSwitch(nextRole: "student" | "instructor") {
+    setRole(nextRole);
+    navigate(nextRole === "student" ? "/dashboard" : "/instructor/dashboard");
+  }
+
   return (
     <div className="flex items-center justify-between border-b border-surface-divider bg-surface-card px-6 py-4">
       <div className="space-y-1">
@@ -28,7 +33,7 @@ export function Navbar({ title, subtitle, userInitials }: NavbarProps) {
       <div className="flex items-center gap-2">
         <button
           type="button"
-          onClick={() => setRole("student")}
+          onClick={() => handleRoleSwitch("student")}
           className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors ${
             role === "student"
               ? "border-lemon-500 bg-lemon-500 text-navy-900"
@@ -39,7 +44,7 @@ export function Navbar({ title, subtitle, userInitials }: NavbarProps) {
         </button>
         <button
           type="button"
-          onClick={() => setRole("instructor")}
+          onClick={() => handleRoleSwitch("instructor")}
           className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors ${
             role === "instructor"
               ? "border-lemon-500 bg-lemon-500 text-navy-900"
