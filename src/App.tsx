@@ -11,9 +11,6 @@ import { InstructorGradingPage } from "./pages/instructor/InstructorGradingPage"
 import { InstructorAnalyticsPage } from "./pages/instructor/InstructorAnalyticsPage";
 import { LoginPage } from "./pages/public/LoginPage";
 import { RegisterPage } from "./pages/public/RegisterPage";
-import { MyCoursesPage } from "./pages/student/MyCoursesPage";
-import { CertificatesPage } from "./pages/student/CertificatesPage";
-import { NotificationsPage } from "./pages/student/NotificationsPage";
 import { useAuthStore } from "./store/authStore";
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
@@ -42,36 +39,6 @@ function App() {
           <RequireAuth>
             <DashboardLayout title="Browse courses" subtitle="Find your next course">
               <CourseBrowsePage />
-            </DashboardLayout>
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/my-courses"
-        element={
-          <RequireAuth>
-            <DashboardLayout title="My courses" subtitle="Track your enrolled courses">
-              <MyCoursesPage />
-            </DashboardLayout>
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/certificates"
-        element={
-          <RequireAuth>
-            <DashboardLayout title="Certificates" subtitle="Your earned certificates">
-              <CertificatesPage />
-            </DashboardLayout>
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/notifications"
-        element={
-          <RequireAuth>
-            <DashboardLayout title="Notifications" subtitle="Your recent notifications">
-              <NotificationsPage />
             </DashboardLayout>
           </RequireAuth>
         }

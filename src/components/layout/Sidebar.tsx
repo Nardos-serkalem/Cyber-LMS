@@ -23,10 +23,10 @@ interface NavItem {
 const navItemsByRole: Record<UserRole, NavItem[]> = {
   student: [
     { label: "Dashboard", path: "/dashboard", section: "overview", icon: LayoutDashboard },
-    { label: "My courses", path: "/my-courses", icon: BookOpen },
+    { label: "My courses", path: "/dashboard", section: "courses", icon: BookOpen },
     { label: "Browse", path: "/courses", icon: Compass },
-    { label: "Certificates", path: "/certificates", icon: Award },
-    { label: "Notifications", path: "/notifications", icon: Bell },
+    { label: "Certificates", path: "/dashboard", section: "certificates", icon: Award },
+    { label: "Notifications", path: "/dashboard", section: "notifications", icon: Bell },
   ],
   instructor: [
     { label: "Dashboard", path: "/instructor/dashboard", icon: LayoutDashboard },
