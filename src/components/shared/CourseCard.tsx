@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Card } from "../ui/Card";
 import { Badge } from "../ui/Badge";
 import { Button } from "../ui/Button";
@@ -13,7 +14,9 @@ export function CourseCard({ course, isEnrolled, onEnroll }: CourseCardProps) {
   return (
     <Card>
       <div className="mb-2 flex items-center justify-between">
-        <span className="text-sm font-medium text-navy-900">{course.title}</span>
+        <Link to={`/courses/${course.id}`} className="text-sm font-medium text-navy-900 hover:underline">
+          {course.title}
+        </Link>
         {isEnrolled && <Badge status="enrolled" />}
       </div>
       <p className="mb-3 text-xs text-surface-muted">{course.description}</p>

@@ -1,26 +1,19 @@
 import type { ReactNode } from "react";
+import brandLogo from "../assets/logo.png";
 
 interface PublicLayoutProps {
   children: ReactNode;
-  backgroundImageUrl?: string;
 }
 
-export function PublicLayout({ children, backgroundImageUrl }: PublicLayoutProps) {
-  const hasBackgroundImage = Boolean(backgroundImageUrl);
-
+export function PublicLayout({ children }: PublicLayoutProps) {
   return (
-    <div className={`relative flex min-h-screen items-center justify-center px-4 ${hasBackgroundImage ? "overflow-hidden bg-navy-900" : "bg-surface-canvas"}`}>
-      {backgroundImageUrl && (
-        <>
-          <div className="absolute inset-0 bg-navy-900/70" />
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-90"
-            style={{ backgroundImage: `url(${backgroundImageUrl})` }}
-            aria-hidden="true"
-          />
-        </>
-      )}
-      <div className={`relative z-10 w-full max-w-xl ${hasBackgroundImage ? "drop-shadow-[0_28px_60px_rgba(10,16,35,0.38)]" : ""}`}>
+    <div className="flex min-h-screen items-center justify-center bg-surface-canvas px-4">
+      <div className="w-full max-w-sm">
+        <div className="mb-8 flex flex-col items-center text-center">
+          <img src={brandLogo} alt="BIRANA LMS logo" className="mb-3 h-20 w-20 object-contain" />
+          <div className="text-xl font-bold text-navy-900">BIRANA LMS</div>
+          <div className="text-xs text-surface-muted">Elevate Skills | Empower Teams</div>
+        </div>
         {children}
       </div>
     </div>

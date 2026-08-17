@@ -36,6 +36,7 @@ export interface Module {
 export interface Lesson {
   id: string;
   moduleId: string;
+  title: string;
   type: "video" | "text";
   contentUrl: string;
   durationSeconds?: number;

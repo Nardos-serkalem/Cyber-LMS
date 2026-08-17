@@ -59,15 +59,19 @@ export function CourseBrowsePage() {
             {course.thumbnailLabel}
           </div>
           <div className="flex flex-1 flex-col px-4 pb-5 pt-4">
-            <span className="mb-2 inline-block w-fit rounded-full bg-lemon-50 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-lemon-700">
+            <span className="mb-2 inline-block w-fit rounded-full bg-lemon-50 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-navy-700">
               {course.category}
             </span>
-            <h3 className="mb-1 text-base font-bold text-navy-900">{course.title}</h3>
-            <p className="mb-1 text-[13px] text-navy-500">{course.instructor}</p>
-            <p className="mb-3 text-[13px] text-navy-500">
+            <h3 className="mb-1 text-base font-bold text-navy-900">
+              {course.title}
+            </h3>
+            <p className="mb-1 text-[13px] text-navy-900">
+              {course.instructor}
+            </p>
+            <p className="mb-3 text-[13px] text-navy-900">
               {course.lessons} lessons · {course.duration}
             </p>
-            <button className="mt-auto w-full rounded-lg border-[1.5px] border-lemon-500 bg-white py-2.5 text-sm font-bold text-lemon-700 transition-colors hover:bg-lemon-50 active:bg-lemon-700 active:text-white">
+            <button className="mt-auto w-full rounded-lg border-[1.5px] border-lemon-500 bg-lemon-500 py-2.5 text-sm font-bold text-navy-900 transition-colors hover:bg-lemon-50 active:bg-lemon-700 active:text-white">
               Enroll Now
             </button>
           </div>

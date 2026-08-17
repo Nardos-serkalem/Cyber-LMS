@@ -1,24 +1,38 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { RouterProvider } from 'react-router-dom'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { router } from './app/AppRouter'
-import { ToastProvider } from './shared/components/toast/ToastProvider'
-import { initBeranaStorage } from './shared/storage/initStorage'
-import { ensureDemoLearningCourse } from './shared/storage/seedDemoCourse'
-import './styles/globals.css'
+import { StrictMode, useEffect } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "./index.css";
+import App from "./App.tsx";
+import { useAuthStore } from "./store/authStore";
 
-initBeranaStorage()
-ensureDemoLearningCourse()
+const queryClient = new QueryClient();
 
-const queryClient = new QueryClient()
+function Bootstrap() {
+  const restoreSession = useAuthStore((s) => s.restoreSession);
+  const isLoading = useAuthStore((s) => s.isLoading);
 
-createRoot(document.getElementById('root')!).render(
+  useEffect(() => {
+    restoreSession();
+  }, [restoreSession]);
+
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center text-sm text-surface-muted">
+        Loading…
+      </div>
+    );
+  }
+
+  return <App />;
+}
+
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ToastProvider>
-        <RouterProvider router={router} />
-      </ToastProvider>
-    </QueryClientProvider>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <Bootstrap />
+      </QueryClientProvider>
+    </BrowserRouter>
   </StrictMode>,
-)
+);
