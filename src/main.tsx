@@ -6,6 +6,15 @@ import "./index.css";
 import App from "./App.tsx";
 import { useAuthStore } from "./store/authStore";
 
+import { ToastProvider } from './shared/components/toast/ToastProvider'
+import { initBeranaStorage } from './shared/storage/initStorage'
+import { ensureDemoSeedData } from './shared/storage/seedDemoData'
+import { ensureDemoLearningCourse } from './shared/storage/seedDemoCourse'
+
+initBeranaStorage()
+ensureDemoSeedData()
+ensureDemoLearningCourse()
+
 const queryClient = new QueryClient();
 
 function Bootstrap() {
@@ -31,7 +40,9 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <Bootstrap />
+        <ToastProvider>
+          <Bootstrap />
+        </ToastProvider>
       </QueryClientProvider>
     </BrowserRouter>
   </StrictMode>,
