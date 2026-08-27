@@ -1,11 +1,15 @@
 import type {
   CampusRecord,
+  CertificateRecord,
   CourseRecord,
   Department,
   PersonRow,
   ProgramRow,
   CourseEnrollment,
 } from '../../modules/institution/types'
+import type { AnnouncementRecord } from '../types/announcements'
+import type { ForumChatRecord, ForumMessageRecord } from '../types/forum'
+import { normalizeAnnouncementRecord } from './announcementUtils'
 import { STORAGE_KEYS } from './keys'
 
 function readJson<T>(key: string, fallback: T): T {
@@ -42,6 +46,10 @@ export function readEnrollments(): CourseEnrollment[] {
   return readJson<CourseEnrollment[]>(STORAGE_KEYS.enrollments, [])
 }
 
+export function readCertificates(): CertificateRecord[] {
+  return readJson<CertificateRecord[]>(STORAGE_KEYS.certificates, [])
+}
+
 export function readInstitutionName(): string {
   try {
     const stored = window.localStorage.getItem(STORAGE_KEYS.settings)
@@ -63,4 +71,83 @@ export function readPublishedApprovedCourses(): CourseRecord[] {
       c.status !== 'archived' &&
       (!c.approvalStatus || c.approvalStatus === 'approved'),
   )
+}
+
+export function readAnnouncements(): AnnouncementRecord[] {
+  return readJson<AnnouncementRecord[]>(STORAGE_KEYS.announcements, []).map(normalizeAnnouncementRecord)
+}
+
+export function readLiveSessions() {
+  return readJson<import('../../modules/institution/types/assessments').LiveSessionRecord[]>(
+    STORAGE_KEYS.liveSessions,
+    [],
+  )
+}
+
+export function readAssignmentRecords() {
+  return readJson<import('../../modules/institution/types/assessments').AssignmentRecord[]>(
+    STORAGE_KEYS.assignments,
+    [],
+  )
+}
+
+export function readQuizRecords() {
+  return readJson<import('../../modules/institution/types/assessments').QuizRecord[]>(
+    STORAGE_KEYS.quizzes,
+    [],
+  )
+}
+
+export function readQuestionBank() {
+  return readJson<import('../../modules/institution/types/assessments').QuestionRecord[]>(
+    STORAGE_KEYS.questionBank,
+    [],
+  )
+}
+
+export function readStudentSubmissions() {
+  return readJson<import('../../modules/institution/types/assessments').StudentSubmissionRecord[]>(
+    STORAGE_KEYS.studentSubmissions,
+    [],
+  )
+}
+
+export function readAttendances() {
+  return readJson<import('../../modules/institution/types').AttendanceRecord[]>(
+    STORAGE_KEYS.attendances,
+    [],
+  )
+}
+
+export function readPayments() {
+  return readJson<import('../../modules/institution/types/platform').PaymentRecord[]>(
+    STORAGE_KEYS.payments,
+    [],
+  )
+}
+
+export function readHelpDeskTickets() {
+  return readJson<import('../../modules/institution/types/platform').HelpDeskTicketRecord[]>(
+    STORAGE_KEYS.helpDeskTickets,
+    [],
+  )
+}
+
+export function readIntegrations() {
+  return readJson<import('../../modules/institution/types/platform').ApiIntegrationRecord[]>(
+    STORAGE_KEYS.integrations,
+    [],
+  )
+}
+
+export function readForumChats(): ForumChatRecord[] {
+  return readJson<ForumChatRecord[]>(STORAGE_KEYS.forumChats, [])
+}
+
+export function readForumMessages(): ForumMessageRecord[] {
+  return readJson<ForumMessageRecord[]>(STORAGE_KEYS.forumMessages, [])
+}
+
+export function readForumReadState(): Record<string, Record<string, string>> {
+  return readJson<Record<string, Record<string, string>>>(STORAGE_KEYS.forumReadState, {})
 }
